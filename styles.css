@@ -1,0 +1,61 @@
+body {
+    background-color: black;
+}
+
+.keyboard-container {
+    /* display: block; */
+    
+}
+
+.keyboard-container-middle {
+    margin: 3px;
+}
+
+.btn {
+    font-size: 1.25em;
+    border-radius: 4px;
+    height: 67px;
+    width: 50px;
+    font-weight: bold;
+    justify-content: center;
+    margin: 3px;
+    text-align: center;
+}
+
+.larger-btn {
+    width: 80px;
+}
+
+#backspace-button {
+    /* background-image: filter(url("/images/delete.png"), invert(1)); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 35%;
+}
+
+.game-board-container {
+    display: grid;
+    place-items: center;
+}
+
+.row {
+    width: 300px;
+    height: 60px;
+    /* background-color: green; */
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgb(74, 72, 72);
+    border-radius: 4px;
+    margin: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+}
