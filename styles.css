@@ -10,7 +10,7 @@ body {
     margin: 3px;
 }
 
-.btn {
+.letter-btn {
     font-size: 1.25em;
     border-radius: 4px;
     height: 67px;
@@ -35,6 +35,7 @@ body {
 .game-board-container {
     display: grid;
     place-items: center;
+    margin-top: 20px;
 }
 
 .row {
@@ -69,4 +70,19 @@ body {
 
 .wrong {
     background-color: rgb(38, 38, 38);
+}
+
+#message {
+    display: none;
+    background-color: white;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    padding: 4px;
+    transform: translateX(-50%);
+}
+
+#game-over-modal-header {
+    text-align: center;
+    justify-content: center;
 }
