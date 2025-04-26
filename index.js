@@ -7,6 +7,7 @@ let currentCell = firstEmptyCell();
 let currentRow = currentCell.parentElement;
 let currentWordGuess = "";
 let numberOfAttempts = 0;
+let gameOver = false;
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////  Functions  /////////////////////////////////
@@ -14,12 +15,13 @@ let numberOfAttempts = 0;
 function setEventListeners(words) {
     const enterButton = document.getElementById("ENTER")
     const backspaceButton = document.getElementById("BACKSPACE")
-    const playAgainButton = document.getElementById('play-again')
+    const playAgainButtons = document.querySelectorAll('.restart-game')
 
     buttons.forEach(button => {
         button.addEventListener("click", function() {
             let letterButton = firstEmptyCell();
-            if (!letterButton || currentWordGuess.length == maxLetters) {
+            if (!letterButton || currentWordGuess.length == maxLetters
+                    || gameOver) {
                 return;
             }
             letterButton.textContent = this.textContent;
@@ -31,20 +33,20 @@ function setEventListeners(words) {
     
     enterButton.addEventListener("click", function() {
         // Check if there's 5 letters
-        if (currentCell === currentRow.lastElementChild) {
+        if (!gameOver && currentCell === currentRow.lastElementChild) {
             checkAnswer(words)
         }
     })
     
     document.addEventListener("keydown", function(event) {
         let button = document.getElementById(event.key.toUpperCase())
-        if (button != null) {
+        if (!gameOver && button != null) {
             button.click()
         }
     })
     
     backspaceButton.addEventListener("click", function() {
-        if (currentWordGuess.length != 0) {
+        if (!gameOver && currentWordGuess.length != 0) {
             currentCell.textContent = "";
             // If no more cells are filled, we must go back to the first empty cell
             currentCell = lastFilledCell() || firstEmptyCell();
@@ -53,10 +55,12 @@ function setEventListeners(words) {
         }
     })
 
-    playAgainButton.addEventListener("click", function () {
-        currentWord = restart(words).toUpperCase();
-        gameOverModal.hide()
-        console.log(currentWord)
+    playAgainButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            currentWord = restart(words).toUpperCase();
+            gameOverModal.hide();
+            console.log(currentWord)
+        })
     })
 }
 
@@ -93,13 +97,20 @@ function checkAnswer(words) {
             letterElem.classList.remove('almost');
             letterElem.classList.add("right");
             currentLetters = currentLetters.replace(letter, '');
-        } else if (currentLetters.includes(letter)){
+        }
+    }
+
+    for (let i = 0; i < allChildren.length; i ++) {
+        let letter = allChildren[i].textContent;
+        let letterElem = document.getElementById(letter);
+        if (currentLetters.includes(letter)
+                && !allChildren[i].classList.contains('right')) {
             allChildren[i].classList.add("almost");
             if (!letterElem.classList.contains('right')) {
                 letterElem.classList.add("almost");
             }
             currentLetters = currentLetters.replace(letter, '');
-        } else {
+        } else if (!allChildren[i].classList.contains('right')) {
             allChildren[i].classList.add("wrong");
             if (!letterElem.classList.contains('right')
                     && !letterElem.classList.contains('almost')) {
@@ -107,16 +118,19 @@ function checkAnswer(words) {
             }
         }
     }
+
     numberOfAttempts += 1;
     if (currentWord === currentWordGuess) {
         const label = document.getElementById("game-over-label");
         const modalBody = document.getElementById("game-over-modal-body");
+        gameOver = true;
         label.textContent = "Congratulations! 🎉";
         modalBody.textContent = "You guessed the right word: " + currentWord;
         gameOverModal.show();
     } else if (numberOfAttempts >= maxAttempts) {
         const label = document.getElementById("game-over-label");
         const modalBody = document.getElementById("game-over-modal-body");
+        gameOver = true;
         label.textContent = "Game Over ☹️";
         modalBody.textContent = "The correct answer was: " + currentWord;
         gameOverModal.show();
@@ -143,6 +157,8 @@ function restart(words) {
         button.classList.remove('right');
         button.classList.remove('almost');
     })
+    numberOfAttempts = 0;
+    gameOver = false;
     return words[Math.floor(Math.random() * words.length)]
 }
 

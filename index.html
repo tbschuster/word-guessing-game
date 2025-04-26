@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav class="navbar navbar-dark bg-dark justify-content-between ps-2 pe-2">
+        <a class="navbar-brand">Wordle</a>
+        <button class="btn btn-light restart-game">Restart</button>
+      </nav>
     <div class="modal fade" id="game-over-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -17,7 +21,7 @@
             <div class="modal-body" id="game-over-modal-body"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="play-again">Play again</button>
+                <button type="button" class="btn btn-dark restart-game">Play again</button>
             </div>
         </div>
         </div>
@@ -69,38 +73,38 @@
     </div>
     <div class="keyboard-container">
         <div class="keyboard-container-top d-flex justify-content-center">
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="Q">Q</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="W">W</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="E">E</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="R">R</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="T">T</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="Y">Y</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="U">U</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="I">I</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="O">O</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="P">P</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="Q">Q</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="W">W</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="E">E</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="R">R</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="T">T</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="Y">Y</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="U">U</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="I">I</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="O">O</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="P">P</button>
         </div>
         <div class="keyboard-container-middle d-flex justify-content-center">
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="A">A</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="S">S</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="D">D</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="F">F</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="G">G</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="H">H</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="J">J</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="K">K</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="L">L</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="A">A</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="S">S</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="D">D</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="F">F</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="G">G</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="H">H</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="J">J</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="K">K</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="L">L</button>
         </div>
         <div class="keyboard-container-bottom d-flex justify-content-center">
-            <button type="button" class="btn btn-secondary btn-lg larger-btn" id="ENTER">Enter</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="Z">Z</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="X">X</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="C">C</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="V">V</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="B">B</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="N">N</button>
-            <button type="button" class="btn btn-secondary btn-lg letter-btn" id="M">M</button>
-            <button type="button" class="btn btn-secondary btn-lg larger-btn" id="BACKSPACE" ></i></button>
+            <button type="button" class="btn btn-dark btn-lg larger-btn" id="ENTER">Enter</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="Z">Z</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="X">X</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="C">C</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="V">V</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="B">B</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="N">N</button>
+            <button type="button" class="btn btn-dark btn-lg letter-btn" id="M">M</button>
+            <button type="button" class="btn btn-dark btn-lg larger-btn" id="BACKSPACE">Backspace</button>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
