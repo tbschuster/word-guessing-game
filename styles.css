@@ -3,8 +3,7 @@ body {
 }
 
 .keyboard-container {
-    /* display: block; */
-    
+    /* display: block; */    
 }
 
 .keyboard-container-middle {
@@ -26,7 +25,7 @@ body {
     width: 80px;
 }
 
-#backspace-button {
+#BACKSPACE {
     /* background-image: filter(url("/images/delete.png"), invert(1)); */
     background-repeat: no-repeat;
     background-position: center;
@@ -58,4 +57,16 @@ body {
     align-items: center;
     font-size: 30px;
     color: white;
+}
+
+.right {
+    background-color: rgb(8, 138, 86);
+}
+
+.almost {
+    background-color: rgb(195, 172, 26);
+}
+
+.wrong {
+    background-color: rgb(38, 38, 38);
 }
