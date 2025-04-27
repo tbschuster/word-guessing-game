@@ -12,7 +12,7 @@ let gameOver = false;
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////  Functions  /////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-function setEventListeners(words) {
+function setEventListeners(all_words) {
     const enterButton = document.getElementById("ENTER")
     const backspaceButton = document.getElementById("BACKSPACE")
     const playAgainButtons = document.querySelectorAll('.restart-game')
@@ -34,7 +34,7 @@ function setEventListeners(words) {
     enterButton.addEventListener("click", function() {
         // Check if there's 5 letters
         if (!gameOver && currentCell === currentRow.lastElementChild) {
-            checkAnswer(words)
+            checkAnswer(all_words)
         }
     })
     
@@ -82,8 +82,8 @@ function lastFilledCell() {
     return lastCell;
 }
 
-function checkAnswer(words) {
-    if (!words.includes(currentWordGuess.toLowerCase())) {
+function checkAnswer(all_words) {
+    if (!all_words.includes(currentWordGuess.toLowerCase())) {
         showMessage("This word is not part of the word list, try again :)");
         return
     }
@@ -111,7 +111,7 @@ function checkAnswer(words) {
             }
             currentLetters = currentLetters.replace(letter, '');
         } else if (!allChildren[i].classList.contains('right')) {
-            allChildren[i].classList.add("wrong");
+            allChildren[i].classList.add("bg-dark");
             if (!letterElem.classList.contains('right')
                     && !letterElem.classList.contains('almost')) {
                 letterElem.classList.add("wrong");
@@ -139,16 +139,20 @@ function checkAnswer(words) {
 }
 
 async function getWordsAndStart() {
-    const response = await fetch("words.txt");
+    const response = await fetch("words/words.txt");
     const text = await response.text();
     const words = text.split("\n").map(x => x.trim()).filter(Boolean);
-    startGame(words)
+
+    const response_2 = await fetch("words/all_words.txt");
+    const text_2 = await response_2.text();
+    const all_words = text_2.split("\n").map(x => x.trim()).filter(Boolean);
+    startGame(words, all_words)
 }
 
 function restart(words) {
     cells.forEach(cell => {
         cell.textContent = "";
-        cell.classList.remove('wrong');
+        cell.classList.remove('bg-dark');
         cell.classList.remove('right');
         cell.classList.remove('almost');
     })
@@ -162,9 +166,9 @@ function restart(words) {
     return words[Math.floor(Math.random() * words.length)]
 }
 
-function startGame(words) {
+function startGame(words, all_words) {
     currentWord = restart(words).toUpperCase();
-    setEventListeners(words);
+    setEventListeners(all_words);
     // delete this after
     console.log(currentWord);
     // 
