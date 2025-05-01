@@ -12,10 +12,10 @@ let gameOver = false;
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////  Functions  /////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-function setEventListeners(all_words) {
-    const enterButton = document.getElementById("ENTER")
-    const backspaceButton = document.getElementById("BACKSPACE")
-    const playAgainButtons = document.querySelectorAll('.restart-game')
+function setEventListeners(words, all_words) {
+    const enterButton = document.getElementById("ENTER");
+    const backspaceButton = document.getElementById("BACKSPACE");
+    const playAgainButtons = document.querySelectorAll('.restart-game');
 
     buttons.forEach(button => {
         button.addEventListener("click", function() {
@@ -50,7 +50,7 @@ function setEventListeners(all_words) {
             currentCell.textContent = "";
             // If no more cells are filled, we must go back to the first empty cell
             currentCell = lastFilledCell() || firstEmptyCell();
-            currentRow = currentCell.parentElement
+            currentRow = currentCell.parentElement;
             currentWordGuess = currentWordGuess.slice(0, -1)
         }
     })
@@ -59,7 +59,6 @@ function setEventListeners(all_words) {
         button.addEventListener("click", function () {
             currentWord = restart(words).toUpperCase();
             gameOverModal.hide();
-            console.log(currentWord)
         })
     })
 }
@@ -163,15 +162,13 @@ function restart(words) {
     })
     numberOfAttempts = 0;
     gameOver = false;
+    currentWordGuess = "";
     return words[Math.floor(Math.random() * words.length)]
 }
 
 function startGame(words, all_words) {
     currentWord = restart(words).toUpperCase();
-    setEventListeners(all_words);
-    // delete this after
-    console.log(currentWord);
-    // 
+    setEventListeners(words, all_words);
 }
 
 function showMessage(text, duration=1500) {
