@@ -1,18 +1,24 @@
 const buttons = document.querySelectorAll(".letter-btn");
 const gameOverModal = new bootstrap.Modal(document.getElementById("game-over-modal"));
-const cells = document.querySelectorAll(".cell");
-const maxLetters = 5;
 const maxAttempts = 6;
-let currentCell = firstEmptyCell();
-let currentRow = currentCell.parentElement;
+const fiveLetterButton = document.getElementById('five-letters-btn');
+const sixLetterButton = document.getElementById('six-letters-btn');
+const overlay = document.getElementById('initial-choice-overlay');
+const gameboardContainer = document.querySelector('.game-board-container');
+const keyboardContainer = document.querySelector('.keyboard-container');
+
+let cells = document.querySelectorAll(".cell");
+let currentCell = null;
+let currentRow = null;
 let currentWordGuess = "";
 let numberOfAttempts = 0;
 let gameOver = false;
+let maxLetters = 5;
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////  Functions  /////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-function setEventListeners(words, all_words) {
+function setEventListeners(fiveLetterWords, sixLetterWords, allWords) {
     const enterButton = document.getElementById("ENTER");
     const backspaceButton = document.getElementById("BACKSPACE");
     const playAgainButtons = document.querySelectorAll('.restart-game');
@@ -34,7 +40,7 @@ function setEventListeners(words, all_words) {
     enterButton.addEventListener("click", function() {
         // Check if there's 5 letters
         if (!gameOver && currentCell === currentRow.lastElementChild) {
-            checkAnswer(all_words)
+            checkAnswer(allWords)
         }
     })
     
@@ -57,10 +63,63 @@ function setEventListeners(words, all_words) {
 
     playAgainButtons.forEach(button => {
         button.addEventListener("click", function () {
-            currentWord = restart(words).toUpperCase();
             gameOverModal.hide();
+            setTimeout(() => {        
+                gameboardContainer.classList.remove('fade-in');
+                gameboardContainer.classList.add('fade-out');
+                keyboardContainer.classList.remove('fade-in');
+                keyboardContainer.classList.add('fade-out');
+            }, 50);
+            overlay.classList.remove('fade-out');
+            overlay.classList.add('fade-in');
+            // currentWord = restart(fiveLetterWords, sixLetterWords).toUpperCase();
         })
     })
+
+    sixLetterButton.onclick = function() {
+        if (maxLetters == 5) {
+            for (let i = 1; i < 7; i++) {
+                const container = document.getElementById('row-' + i);
+                container.classList.remove('row-md');
+                container.classList.add('row-lg');
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.classList.add('col');
+                container.appendChild(cell);
+            }
+            maxLetters = 6;
+        }
+        overlay.classList.remove('fade-in');
+        overlay.classList.add('fade-out');
+        setTimeout(() => {        
+            gameboardContainer.classList.remove('fade-out');
+            gameboardContainer.classList.add('fade-in');
+            keyboardContainer.classList.remove('fade-out');
+            keyboardContainer.classList.add('fade-in');
+        }, 50);
+        currentWord = restart(fiveLetterWords, sixLetterWords).toUpperCase();
+    }
+
+    fiveLetterButton.onclick = function() {
+        if (maxLetters == 6) {
+            for (let i = 1; i < 7; i++) {
+                const container = document.getElementById('row-' + i);
+                container.classList.remove('row-lg');
+                container.classList.add('row-md');
+                container.removeChild(container.lastElementChild);
+            }
+            maxLetters = 5;
+        }
+        overlay.classList.remove('fade-in');
+        overlay.classList.add('fade-out');
+        setTimeout(() => {        
+            gameboardContainer.classList.remove('fade-out');
+            gameboardContainer.classList.add('fade-in');
+            keyboardContainer.classList.remove('fade-out');
+            keyboardContainer.classList.add('fade-in');
+        }, 50);
+        currentWord = restart(fiveLetterWords, sixLetterWords).toUpperCase();
+    }
 }
 
 function firstEmptyCell() {
@@ -81,8 +140,8 @@ function lastFilledCell() {
     return lastCell;
 }
 
-function checkAnswer(all_words) {
-    if (!all_words.includes(currentWordGuess.toLowerCase())) {
+function checkAnswer(allWords) {
+    if (!allWords.includes(currentWordGuess.toLowerCase())) {
         showMessage("This word is not part of the word list, try again :)");
         return
     }
@@ -137,18 +196,54 @@ function checkAnswer(all_words) {
     currentWordGuess = "";
 }
 
-async function getWordsAndStart() {
-    const response = await fetch("words/words.txt");
+async function getWordsAndStart(maxLettersChoice) {
+    const response = await fetch("words/five_letter_words.txt");
     const text = await response.text();
-    const words = text.split("\n").map(x => x.trim()).filter(Boolean);
+    const fiveLetterWords = text.split("\n").map(x => x.trim()).filter(Boolean);
 
-    const response_2 = await fetch("words/all_words.txt");
-    const text_2 = await response_2.text();
-    const all_words = text_2.split("\n").map(x => x.trim()).filter(Boolean);
-    startGame(words, all_words)
+    const response2 = await fetch("words/six_letter_words.txt");
+    const text2 = await response2.text();
+    const sixLetterWords = text2.split("\n").map(x => x.trim()).filter(Boolean);
+
+    const response3 = await fetch("words/five_letter_words_all.txt");
+    const text3 = await response3.text();
+
+    const response4 = await fetch("words/six_letter_words_all.txt");
+    const text4 = await response4.text();
+
+    const allWords = text3.split("\n").map(x => x.trim()).filter(Boolean).concat(
+        text4.split("\n").map(x => x.trim()).filter(Boolean));
+
+    maxLetters = maxLettersChoice;
+    if (maxLetters == 6) {
+        rowClass = 'row-lg';
+    } else {
+        rowClass = 'row-md';
+    }
+
+    for (let i = 1; i < 7; i++) {
+        const container = document.getElementById('row-' + i)
+        container.classList.add(rowClass);
+        for (let j = 0; j < maxLetters; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.classList.add('col');
+            container.appendChild(cell);
+        }
+    }
+
+    overlay.classList.add('fade-out');
+    setTimeout(() => {        
+        gameboardContainer.classList.add('fade-in');
+        keyboardContainer.classList.add('fade-in');
+    }, 50);
+
+    startGame(fiveLetterWords, sixLetterWords, allWords)
 }
 
-function restart(words) {
+function restart(fiveLetterWords, sixLetterWords) {
+    cells = document.querySelectorAll(".cell");
+
     cells.forEach(cell => {
         cell.textContent = "";
         cell.classList.remove('bg-dark');
@@ -160,15 +255,23 @@ function restart(words) {
         button.classList.remove('right');
         button.classList.remove('almost');
     })
+
+    currentCell = firstEmptyCell();
+    currentRow = currentCell.parentElement;
     numberOfAttempts = 0;
     gameOver = false;
     currentWordGuess = "";
-    return words[Math.floor(Math.random() * words.length)]
+
+    if (maxLetters == 6) {
+        return sixLetterWords[Math.floor(Math.random() * sixLetterWords.length)]
+    } else if (maxLetters == 5) {
+        return fiveLetterWords[Math.floor(Math.random() * fiveLetterWords.length)]
+    }
 }
 
-function startGame(words, all_words) {
-    currentWord = restart(words).toUpperCase();
-    setEventListeners(words, all_words);
+function startGame(fiveLetterWords, sixLetterWords, allWords) {
+    currentWord = restart(fiveLetterWords, sixLetterWords).toUpperCase();
+    setEventListeners(fiveLetterWords, sixLetterWords, allWords);
 }
 
 function showMessage(text, duration=1500) {
@@ -184,4 +287,4 @@ function showMessage(text, duration=1500) {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////  Start  ///////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-getWordsAndStart();
+// getWordsAndStart();

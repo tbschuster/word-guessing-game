@@ -1,1 +1,1 @@
-# wordle
+# Word Guessing Game
