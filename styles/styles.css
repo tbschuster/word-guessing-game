@@ -176,6 +176,10 @@ body {
         width: 9vw;
     }
 
+    .keyboard-container-middle {
+        margin: 1.5px;
+    }
+
     .larger-btn {
         width: 10vw;
         height: 58px;
