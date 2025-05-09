@@ -2,10 +2,6 @@ body {
     background-color: black;
 }
 
-#BACKSPACE {
-    width: 150px;
-}
-
 #choice-box {
     background: #333;
     padding: 20px;
@@ -93,6 +89,7 @@ body {
     display: grid;
     place-items: center;
     margin-top: 20px;
+    margin-bottom: 20px;
     opacity: 0;
     visibility: hidden;
 }
@@ -111,6 +108,7 @@ body {
     margin: 3px;
     justify-content: center;
     text-align: center;
+    padding: 0;
 }
 
 .letter-btn {
@@ -122,6 +120,7 @@ body {
     margin: 3px;
     justify-content: center;
     text-align: center;
+    padding: 0;
 }
 
 .pick-letters {
@@ -164,4 +163,35 @@ body {
 
 .wrong {
     color: rgb(81, 73, 73);
+}
+
+@media (max-width: 520px) {
+    .cell {
+        width: 50px;
+        height: 50px;
+    }
+
+    .row-md {
+        width: 250px;
+        height: 50px;
+    }
+
+    .row-lg {
+        width: 300px;
+        height: 50px;
+    }
+
+    .letter-btn {
+        width: 30px;
+        font-size: 0.9em;
+        height: 40px;
+        margin: 1.5px;
+    }
+
+    .larger-btn {
+        width: 40px;
+        font-size: 0.9em;
+        height: 40px;
+        margin: 1.5px;
+    }
 }

@@ -93,8 +93,7 @@ function setEventListeners(fiveLetterWords, sixLetterWords, allWords) {
     })
     
     enterButton.addEventListener("click", function() {
-        // Check if there's 5 letters
-        if (!gameOver && currentCell === currentRow.lastElementChild) {
+        if (!gameOver && currentWordGuess.length === maxLetters) {
             checkAnswer(allWords);
         }
     })
