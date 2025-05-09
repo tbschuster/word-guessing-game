@@ -89,7 +89,6 @@ body {
     display: grid;
     place-items: center;
     margin-top: 20px;
-    margin-bottom: 20px;
     opacity: 0;
     visibility: hidden;
 }
@@ -166,31 +165,19 @@ body {
 }
 
 @media (max-width: 520px) {
-    .cell {
-        width: 50px;
-        height: 50px;
-    }
-
-    .row-md {
-        width: 250px;
-        height: 50px;
-    }
-
-    .row-lg {
-        width: 300px;
-        height: 50px;
+    #choice-container {
+        margin: 10%;
     }
 
     .letter-btn {
-        width: 30px;
-        font-size: 0.9em;
+        font-size: 1em;
         height: 40px;
         margin: 1.5px;
+        width: 9vw;
     }
 
     .larger-btn {
-        width: 40px;
-        font-size: 0.9em;
+        width: 10vw;
         height: 40px;
         margin: 1.5px;
     }
