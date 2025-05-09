@@ -2,8 +2,72 @@ body {
     background-color: black;
 }
 
+#BACKSPACE {
+    width: 150px;
+}
+
+#choice-box {
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#choice-container {
+    background-color: rgba(145, 134, 134, 0.206);
+    padding: 50px;
+    margin: 30%;
+    border-radius: 25px;
+    display: grid;
+    place-items: center;
+}
+
+#game-over-modal-body {
+    text-align: center;
+    justify-content: center;
+}
+
+#game-over-modal-header, #game-over-modal-footer {
+    text-align: center;
+    justify-content: center;
+    border: 0;
+}
+
+#initial-choice-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+}
+
+#initial-choice-overlay, .game-board-container, .keyboard-container {
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#initial-choice-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#message {
+    display: none;
+    background-color: white;
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    padding: 4px;
+    transform: translateX(-50%);
+}
+
 .keyboard-container {
-    /* display: none; */
     opacity: 0;
     visibility: hidden;
 }
@@ -12,15 +76,30 @@ body {
     margin: 3px;
 }
 
-.letter-btn {
-    font-size: 1.25em;
+.cell, .demo-cell {
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgb(74, 72, 72);
     border-radius: 4px;
-    height: 67px;
-    width: 50px;
-    font-weight: bold;
     margin: 3px;
+    display: flex;
     justify-content: center;
-    text-align: center;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+}
+
+.game-board-container {
+    display: grid;
+    place-items: center;
+    margin-top: 20px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.keyboard-container.fade-in, .game-board-container.fade-in, .initial-choice-overlay.fade-in {
+    opacity: 1;
+    visibility: visible;
 }
 
 .larger-btn {
@@ -34,16 +113,29 @@ body {
     text-align: center;
 }
 
-#BACKSPACE {
-    width: 150px;
+.letter-btn {
+    font-size: 1.25em;
+    border-radius: 4px;
+    height: 67px;
+    width: 50px;
+    font-weight: bold;
+    margin: 3px;
+    justify-content: center;
+    text-align: center;
 }
 
-.game-board-container {
-    display: grid;
-    place-items: center;
-    margin-top: 20px;
-    opacity: 0;
-    visibility: hidden;
+.pick-letters {
+    align-items: center;
+}
+
+.pick-letters-buttons {
+    justify-content: center;
+    display: flex;
+}
+
+.pick-btn {
+    width: 100px;
+    margin: 5px;
 }
 
 .row-lg {
@@ -62,107 +154,14 @@ body {
     display: flex;
 }
 
-.cell, .demo-cell {
-    width: 60px;
-    height: 60px;
-    border: 2px solid rgb(74, 72, 72);
-    border-radius: 4px;
-    margin: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    color: white;
+.almost {
+    background-color: rgba(255, 221, 0, 0.764);
 }
 
 .right {
     background-color: rgb(5, 92, 57);
 }
 
-.almost {
-    background-color: rgba(255, 221, 0, 0.764);
-}
-
 .wrong {
     color: rgb(81, 73, 73);
-}
-
-#message {
-    display: none;
-    background-color: white;
-    position: fixed;
-    top: 60px;
-    left: 50%;
-    padding: 4px;
-    transform: translateX(-50%);
-}
-
-#game-over-modal-header, #game-over-modal-footer {
-    text-align: center;
-    justify-content: center;
-    border: 0;
-}
-
-#game-over-modal-body {
-    text-align: center;
-    justify-content: center;
-}
-
-#initial-choice-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.8);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    opacity: 1;
-    visibility: visible;
-}
-
-#initial-choice-overlay.fade-out {
-    opacity: 0;
-    visibility: hidden;
-}
-
-#choice-box {
-    background: #333;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-#initial-choice-overlay, .game-board-container, .keyboard-container {
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.keyboard-container.fade-in, .game-board-container.fade-in, .initial-choice-overlay.fade-in {
-    opacity: 1;
-    visibility: visible;
-}
-
-#choice-container {
-    background-color: rgba(145, 134, 134, 0.206);
-    padding: 50px;
-    margin: 30%;
-    border-radius: 25px;
-    display: grid;
-    place-items: center;
-}
-
-.pick-letters {
-    align-items: center;
-}
-
-.pick-letters-buttons {
-    justify-content: center;
-    display: flex;
-}
-
-.pick-btn {
-    width: 100px;
-    margin: 5px;
 }
